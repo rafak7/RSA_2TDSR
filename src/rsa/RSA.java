@@ -7,7 +7,6 @@ public class RSA {
     private BigInteger n, d, e;
     private int bitlen = 1024;
 
-    // Construtor para gerar as chaves públicas e privadas (usado no servidor)
     public RSA(int bits) {
         bitlen = bits;
         SecureRandom random = new SecureRandom();
@@ -26,25 +25,21 @@ public class RSA {
         d = e.modInverse(phi);
     }
 
-    // Novo construtor que recebe n e e (usado no cliente)
     public RSA(BigInteger n, BigInteger e) {
         this.n = n;
         this.e = e;
     }
 
-    // Criptografa a mensagem usando a chave pública
     public String encrypt(String message) {
         BigInteger m = new BigInteger(message.getBytes());
         return m.modPow(e, n).toString();
     }
 
-    // Descriptografa a mensagem usando a chave privada (somente o servidor tem a chave privada)
     public String decrypt(String encryptedMessage) {
         BigInteger m = new BigInteger(encryptedMessage);
         return new String(m.modPow(d, n).toByteArray());
     }
 
-    // Método para enviar a chave pública (n, e)
     public BigInteger getPublicKeyN() {
         return n;
     }

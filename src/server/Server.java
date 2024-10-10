@@ -19,21 +19,17 @@ public class Server {
 
                 SocketConnection connection = new SocketConnection(clientSocket);
 
-                // Inicializa RSA e envia a chave pública ao cliente
                 RSA rsa = new RSA(1024);
-                connection.send(rsa.getPublicKeyN().toString());  // Envia n
-                connection.send(rsa.getPublicKeyE().toString());  // Envia e
+                connection.send(rsa.getPublicKeyN().toString());
+                connection.send(rsa.getPublicKeyE().toString());
 
-                // Recebe mensagem criptografada do cliente
                 String encryptedMessage = connection.receive();
                 System.out.println("Mensagem criptografada recebida: " + encryptedMessage);
 
                 try {
-                    // Descriptografa a mensagem recebida
                     String decryptedMessage = rsa.decrypt(encryptedMessage);
                     System.out.println("Mensagem descriptografada: " + decryptedMessage);
 
-                    // Resposta ao cliente
                     String response = "Mensagem recebida e descriptografada com sucesso!";
                     String encryptedResponse = rsa.encrypt(response);
                     connection.send(encryptedResponse);

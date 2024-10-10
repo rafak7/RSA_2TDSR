@@ -20,7 +20,7 @@ public class SocketConnection {
     }
 
     public String receive() throws IOException {
-        return input.readUTF();  // Certifique-se de que o cliente e o servidor estão enviando/recebendo corretamente
+        return input.readUTF();
     }
 
     public void close() throws IOException {
