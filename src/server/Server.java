@@ -3,8 +3,8 @@ package server;
 import connection.SocketConnection;
 import rsa.RSA;
 
-import java.net.*;
-import java.io.*;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 public class Server {
     private static final int PORT = 12345;
@@ -14,35 +14,33 @@ public class Server {
             System.out.println("Servidor aguardando conexões...");
 
             while (true) {
+                // Aceitando a conexão do cliente
                 Socket clientSocket = serverSocket.accept();
                 System.out.println("Cliente conectado: " + clientSocket.getInetAddress());
 
+                // Criando conexão com o cliente
                 SocketConnection connection = new SocketConnection(clientSocket);
 
-                RSA rsa = new RSA(1024);
-                connection.send(rsa.getPublicKeyN().toString());
-                connection.send(rsa.getPublicKeyE().toString());
+                // Instanciando RSA com as chaves fixas do servidor
+                RSA rsa = new RSA();  // P, Q, N, E, D já fixados no RSA.java
 
+                // Enviando a chave pública para o cliente
+                connection.send(rsa.getPublicKeyN().toString());  // Envia N
+                connection.send(rsa.getPublicKeyE().toString());  // Envia E
+
+                // Recebendo a mensagem criptografada do cliente
                 String encryptedMessage = connection.receive();
                 System.out.println("Mensagem criptografada recebida: " + encryptedMessage);
 
-                try {
-                    String decryptedMessage = rsa.decrypt(encryptedMessage);
-                    System.out.println("Mensagem descriptografada: " + decryptedMessage);
+                // Descriptografando a mensagem recebida
+                String decryptedMessage = rsa.decrypt(encryptedMessage);
+                System.out.println("Mensagem descriptografada: " + decryptedMessage);
 
-                    String response = "Mensagem recebida e descriptografada com sucesso!";
-                    String encryptedResponse = rsa.encrypt(response);
-                    connection.send(encryptedResponse);
-                } catch (Exception e) {
-                    System.out.println("Erro ao descriptografar a mensagem: " + e.getMessage());
-                    e.printStackTrace();
-                }
-
+                // Fechando a conexão com o cliente
                 connection.close();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 }
-
