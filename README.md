@@ -27,11 +27,12 @@ Criptografia RSA: Utilizada para garantir a segurança na troca de mensagens ent
 Sockets TCP/IP: Protocolo de comunicação utilizado para estabelecer a conexão entre o cliente e o servidor.
 
 # 📁 Estrutura do Projeto
-├── src
-│   ├── Server.java
-│   ├── Client.java
-├── README.md
-└── 
+
+src/
+├── Server.java
+├── Client.java
+└── README.md
+
 
 
 
