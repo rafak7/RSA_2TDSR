@@ -5,7 +5,7 @@ Bem-vindo ao **API Socket com Criptografia RSA**! Este projeto implementa a comu
 # 🚀 Execução do Projeto
 Para iniciar a comunicação segura entre o cliente e o servidor, siga os passos abaixo:
 
-Compile o projeto: Compile as classes Server.java e Client.java usando o compilador Java:
+## 1. Compile o projeto: Compile as classes Server.java e Client.java usando o compilador Java:
 
 javac Server.java Client.java
 Inicie o Servidor: Execute o servidor, que ficará aguardando conexões de clientes:
@@ -13,7 +13,7 @@ Inicie o Servidor: Execute o servidor, que ficará aguardando conexões de clien
 java Server
 O servidor irá gerar um par de chaves RSA (pública e privada) para criptografar e descriptografar as mensagens.
 
-Inicie o Cliente: Agora, execute o cliente, que se conectará ao servidor e enviará uma mensagem criptografada:
+## 2. Inicie o Cliente: Agora, execute o cliente, que se conectará ao servidor e enviará uma mensagem criptografada:
 
 java Client
 Envio da Mensagem: Após estabelecer a conexão, o cliente enviará a mensagem "Tranquilo", que será criptografada e enviada ao servidor.
