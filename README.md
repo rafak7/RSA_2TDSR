@@ -26,15 +26,12 @@ Java: Linguagem utilizada para implementar a comunicação socket.
 Criptografia RSA: Utilizada para garantir a segurança na troca de mensagens entre o cliente e o servidor.
 Sockets TCP/IP: Protocolo de comunicação utilizado para estabelecer a conexão entre o cliente e o servidor.
 
-📁 Estrutura do Projeto
-arduino
-Copiar código
+# 📁 Estrutura do Projeto
 ├── src
 │   ├── Server.java
 │   ├── Client.java
-│   └── RSAUtils.java  # Classe utilitária para geração de chaves e criptografia
 ├── README.md
-└── ...
+└── 
 
 
 
