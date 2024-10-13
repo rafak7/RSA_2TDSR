@@ -14,29 +14,22 @@ public class Server {
             System.out.println("Servidor aguardando conexões...");
 
             while (true) {
-                // Aceitando a conexão do cliente
                 Socket clientSocket = serverSocket.accept();
                 System.out.println("Cliente conectado: " + clientSocket.getInetAddress());
 
-                // Criando conexão com o cliente
                 SocketConnection connection = new SocketConnection(clientSocket);
 
-                // Instanciando RSA com as chaves fixas do servidor
-                RSA rsa = new RSA();  // P, Q, N, E, D já fixados no RSA.java
+                RSA rsa = new RSA();
 
-                // Enviando a chave pública para o cliente
-                connection.send(rsa.getPublicKeyN().toString());  // Envia N
-                connection.send(rsa.getPublicKeyE().toString());  // Envia E
+                connection.send(rsa.getPublicKeyN().toString());
+                connection.send(rsa.getPublicKeyE().toString());
 
-                // Recebendo a mensagem criptografada do cliente
                 String encryptedMessage = connection.receive();
                 System.out.println("Mensagem criptografada recebida: " + encryptedMessage);
 
-                // Descriptografando a mensagem recebida
                 String decryptedMessage = rsa.decrypt(encryptedMessage);
                 System.out.println("Mensagem descriptografada: " + decryptedMessage);
 
-                // Fechando a conexão com o cliente
                 connection.close();
             }
         } catch (Exception ex) {
